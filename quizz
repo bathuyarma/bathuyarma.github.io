@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Загадка</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    #result { margin-top: 15px; font-weight: bold; }
+    img { max-width: 300px; }
+  </style>
+</head>
+<body>
+  <h2>Загадка:</h2>
+  <p>Висит груша, нельзя скушать. Что это?</p>
+  <input type="text" id="answer" placeholder="Ваш ответ">
+  <button onclick="checkAnswer()">Проверить</button>
+
+  <div id="result"></div>
+
+  <script>
+    function checkAnswer() {
+      const input = document.getElementById('answer').value.trim().toLowerCase();
+      const resultDiv = document.getElementById('result');
+
+      // Правильные варианты ответа
+      if (input === 'лампочка' || input === 'лампа') {
+        resultDiv.innerHTML = `
+          <p>Верно!</p>
+          <img src="https://via.placeholder.com/300?text=Награда+за+правильный+ответ" alt="Картинка-награда">
+        `;
+      } else {
+        resultDiv.textContent = 'Неверно, попробуйте ещё раз.';
+      }
+    }
+  </script>
+</body>
+</html>
