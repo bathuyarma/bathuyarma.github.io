@@ -167,7 +167,7 @@
       <label><input type="radio" name="answer-7" value="Фиолетовые новогодние"> Фиолетовые новогодние</label>
       <label><input type="radio" name="answer-7" value="Синие однотонные"> Синие однотонные</label>
       <label><input type="radio" name="answer-7" value="С мороженками"> С мороженками</label>
-      <label><input type="radio" name="answer-7" value="С вишеней"> С вишеней</label>
+      <label><input type="radio" name="answer-7" value="С вишней"> С вишней</label>
     </div>
     <button id="btn-7" onclick="checkAnswer7()">Проверить</button>
     <div id="feedback-7" class="feedback"></div>
@@ -505,7 +505,7 @@
     }
 
     const value = selected.value;
-    if (value === 'С вишеней') {
+    if (value === 'С вишней') {
       feedback.textContent = 'Верно!';
       feedback.className = 'feedback correct';
       hideAllStages();
