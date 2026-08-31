@@ -2,36 +2,610 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Загадка</title>
+  <title>Квест-загадки</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    #result { margin-top: 15px; font-weight: bold; }
-    img { max-width: 300px; }
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 15px; }
+    .stage { display: none; }
+    .stage.active { display: block; }
+    h2 { margin-top: 0; }
+    img { max-width: 100%; height: auto; border: 2px solid #ccc; margin-top: 15px; }
+    button, input { padding: 8px 12px; font-size: 16px; }
+    .feedback { margin-top: 10px; font-weight: bold; }
+    .correct { color: #2e7d32; }
+    .wrong { color: #c62828; }
+    .options label { display: block; margin: 6px 0; cursor: pointer; }
   </style>
 </head>
 <body>
-  <h2>Загадка:</h2>
-  <p>Висит груша, нельзя скушать. Что это?</p>
-  <input type="text" id="answer" placeholder="Ваш ответ">
-  <button onclick="checkAnswer()">Проверить</button>
 
-  <div id="result"></div>
+  <!-- Этап 1: Вопрос 1 (варианты ответов) -->
+  <div id="stage-1" class="stage active">
+    <h2>Подарок №2</h2>
+    <p>Сколько рыбок в аквариуме?</p>
+    <div class="options">
+      <label><input type="radio" name="answer-1" value="9"> 9</label>
+      <label><input type="radio" name="answer-1" value="11"> 11</label>
+      <label><input type="radio" name="answer-1" value="10"> 10</label>
+      <label><input type="radio" name="answer-1" value="12"> 12</label>
+    </div>
+    <button onclick="checkAnswer1()">Проверить</button>
+    <div id="feedback-1" class="feedback"></div>
+  </div>
 
-  <script>
-    function checkAnswer() {
-      const input = document.getElementById('answer').value.trim().toLowerCase();
-      const resultDiv = document.getElementById('result');
+  <!-- Этап 2: Награда 1 + кодовое слово -->
+  <div id="stage-2" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-1" placeholder="Кодовое слово">
+    <button onclick="checkCode1()">Продолжить</button>
+    <div id="feedback-code-1" class="feedback"></div>
+  </div>
 
-      // Правильные варианты ответа
-      if (input === 'лампочка' || input === 'лампа') {
-        resultDiv.innerHTML = `
-          <p>Верно!</p>
-          <img src="https://via.placeholder.com/300?text=Награда+за+правильный+ответ" alt="Картинка-награда">
-        `;
-      } else {
-        resultDiv.textContent = 'Неверно, попробуйте ещё раз.';
-      }
+  <!-- Этап 3: Вопрос 2 (варианты ответов) -->
+  <div id="stage-3" class="stage">
+    <h2>Подарок №3</h2>
+    <p>Какая это модель ВАЗ?</p>
+	<img src="images/vaz.png">
+    <div class="options">
+      <label><input type="radio" name="answer-2" value="ВАЗ-2108"> ВАЗ-2108</label>
+      <label><input type="radio" name="answer-2" value="ВАЗ-2115"> ВАЗ-2115</label>
+      <label><input type="radio" name="answer-2" value="ВАЗ-2113"> ВАЗ-2113</label>
+      <label><input type="radio" name="answer-2" value="ВАЗ-2109"> ВАЗ-2109</label>
+    </div>
+    <button onclick="checkAnswer2()">Проверить</button>
+    <div id="feedback-2" class="feedback"></div>
+  </div>
+
+  <!-- Этап 4: Награда 2 + кодовое слово -->
+  <div id="stage-4" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-2" placeholder="Кодовое слово">
+    <button onclick="checkCode2()">Продолжить</button>
+    <div id="feedback-code-2" class="feedback"></div>
+  </div>
+
+  <!-- Этап 5: Вопрос 3 (открытый вопрос) -->
+  <div id="stage-5" class="stage">
+    <h2>Подарок №4</h2>
+    <p>Назови напиток?</p>
+	<img src="images/zapp.jpg">
+    <input type="text" id="answer-3" placeholder="Ваш ответ">
+    <button onclick="checkAnswer3()">Проверить</button>
+    <div id="feedback-3" class="feedback"></div>
+  </div>
+
+  <!-- Этап 6: Награда 3 + кодовое слово -->
+  <div id="stage-6" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-3" placeholder="Кодовое слово">
+    <button onclick="checkCode3()">Продолжить</button>
+    <div id="feedback-code-3" class="feedback"></div>
+  </div>
+
+  <!-- Этап 7: Вопрос 4 (варианты ответов) -->
+  <div id="stage-7" class="stage">
+    <h2>Подарок №5</h2>
+    <p>Это кадр из какого фильма?</p>
+	<img src="images/sasha.png">
+    <div class="options">
+      <label><input type="radio" name="answer-4" value="Борат"> Борат</label>
+      <label><input type="radio" name="answer-4" value="Диктатор"> Диктатор</label>
+      <label><input type="radio" name="answer-4" value="Бруно"> Бруно</label>
+      <label><input type="radio" name="answer-4" value="Братья из Гримсби"> Братья из Гримсби</label>
+    </div>
+    <button onclick="checkAnswer4()">Проверить</button>
+    <div id="feedback-4" class="feedback"></div>
+  </div>
+
+  <!-- Этап 8: Награда 4 + кодовое слово -->
+  <div id="stage-8" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-4" placeholder="Кодовое слово">
+    <button onclick="checkCode4()">Продолжить</button>
+    <div id="feedback-code-4" class="feedback"></div>
+  </div>
+
+  <!-- Этап 9: Вопрос 5 (открытый вопрос) -->
+  <div id="stage-9" class="stage">
+    <h2>Подарок №6</h2>
+    <p>Назови слово?</p>
+	<img src="images/ass.jpg">
+    <input type="text" id="answer-5" placeholder="Ваш ответ">
+    <button onclick="checkAnswer5()">Проверить</button>
+    <div id="feedback-5" class="feedback"></div>
+  </div>
+
+  <!-- Этап 10: Награда 5 + кодовое слово -->
+  <div id="stage-10" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-5" placeholder="Кодовое слово">
+    <button onclick="checkCode5()">Продолжить</button>
+    <div id="feedback-code-5" class="feedback"></div>
+  </div>
+
+  <!-- Этап 11: Вопрос 6 (открытый вопрос) -->
+  <div id="stage-11" class="stage">
+    <h2>Подарок №7</h2>
+    <p>Назови персонажа?</p>
+	<img src="images/simp.jpg">
+    <input type="text" id="answer-6" placeholder="Ваш ответ">
+    <button onclick="checkAnswer6()">Проверить</button>
+    <div id="feedback-6" class="feedback"></div>
+  </div>
+
+  <!-- Этап 12: Награда 6 + кодовое слово -->
+  <div id="stage-12" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-6" placeholder="Кодовое слово">
+    <button onclick="checkCode6()">Продолжить</button>
+    <div id="feedback-code-6" class="feedback"></div>
+  </div>
+
+  <!-- Этап 13: Вопрос 7 (варианты ответов) -->
+  <div id="stage-13" class="stage">
+    <h2>Подарок №8</h2>
+    <p>Какие трусы сейчас на муже?</p>
+    <div class="options">
+      <label><input type="radio" name="answer-7" value="Фиолетовые новогодние"> Фиолетовые новогодние</label>
+      <label><input type="radio" name="answer-7" value="Синие однотонные"> Синие однотонные</label>
+      <label><input type="radio" name="answer-7" value="С мороженками"> С мороженками</label>
+      <label><input type="radio" name="answer-7" value="С ромашками"> С ромашками</label>
+    </div>
+    <button onclick="checkAnswer7()">Проверить</button>
+    <div id="feedback-7" class="feedback"></div>
+  </div>
+
+  <!-- Этап 14: Награда 7 + кодовое слово -->
+  <div id="stage-14" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-7" placeholder="Кодовое слово">
+    <button onclick="checkCode7()">Продолжить</button>
+    <div id="feedback-code-7" class="feedback"></div>
+  </div>
+
+  <!-- Этап 15: Вопрос 8 (варианты ответов) -->
+  <div id="stage-15" class="stage">
+    <h2>Подарок №9</h2>
+    <p>Что это за цветок?</p>
+	<img src="images/flower.jpg">
+    <div class="options">
+      <label><input type="radio" name="answer-8" value="Василёк"> Василёк</label>
+      <label><input type="radio" name="answer-8" value="Ирис"> Ирис</label>
+      <label><input type="radio" name="answer-8" value="Георгин"> Георгин</label>
+      <label><input type="radio" name="answer-8" value="Петуния"> Петуния</label>
+    </div>
+    <button onclick="checkAnswer8()">Проверить</button>
+    <div id="feedback-8" class="feedback"></div>
+  </div>
+
+  <!-- Этап 16: Награда 8 + кодовое слово -->
+  <div id="stage-16" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-8" placeholder="Кодовое слово">
+    <button onclick="checkCode8()">Продолжить</button>
+    <div id="feedback-code-8" class="feedback"></div>
+  </div>
+
+  <!-- Этап 17: Вопрос 9 (открытый вопрос) -->
+  <div id="stage-17" class="stage">
+    <h2>Подарок №10</h2>
+    <p>Что можно увидеть с закрытыми глазами?</p>
+    <input type="text" id="answer-9" placeholder="Ваш ответ">
+    <button onclick="checkAnswer9()">Проверить</button>
+    <div id="feedback-9" class="feedback"></div>
+  </div>
+
+  <!-- Этап 18: Награда 9 + кодовое слово -->
+  <div id="stage-18" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-9" placeholder="Кодовое слово">
+    <button onclick="checkCode9()">Продолжить</button>
+    <div id="feedback-code-9" class="feedback"></div>
+  </div>
+
+  <!-- Этап 19: Вопрос 10 (открытый вопрос) -->
+  <div id="stage-19" class="stage">
+    <h2>Подарок №11</h2>
+    <p>Всавь пропущенное слово: "Мочалка, мыло, полотенце, шапочка, ..., очки".</p>
+    <input type="text" id="answer-10" placeholder="Ваш ответ">
+    <button onclick="checkAnswer10()">Проверить</button>
+    <div id="feedback-10" class="feedback"></div>
+  </div>
+
+  <!-- Этап 20: Награда 10 + кодовое слово -->
+  <div id="stage-20" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>Нашла? Введи слово:</p>
+    <input type="text" id="code-10" placeholder="Кодовое слово">
+    <button onclick="checkCode10()">Продолжить</button>
+    <div id="feedback-code-10" class="feedback"></div>
+  </div>
+
+  <!-- Этап 21: Вопрос 11 (открытый вопрос) -->
+  <div id="stage-21" class="stage">
+    <h2>Подарок №12</h2>
+    <p>У квадратного стола отпилили один угол. Сколько теперь углов у него стало?</p>
+    <input type="text" id="answer-11" placeholder="Ваш ответ">
+    <button onclick="checkAnswer11()">Проверить</button>
+    <div id="feedback-11" class="feedback"></div>
+  </div>
+
+  <!-- Этап 22: Награда 10 + кодовое слово -->
+  <div id="stage-22" class="stage">
+    <h2>Отлично!</h2>
+    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <p>С днём рождения!!!</p>
+    <p>Тебе уже 35. Пора задуматься о том, что действительно важно.</p>
+  </div>
+
+
+<script>
+  function hideAllStages() {
+    const stages = document.querySelectorAll('.stage');
+    stages.forEach(el => el.classList.remove('active'));
+  }
+
+  // --- Вопрос 1 (варианты ответов) ---
+  function checkAnswer1() {
+    const selected = document.querySelector('input[name="answer-1"]:checked');
+    const feedback = document.getElementById('feedback-1');
+
+    if (!selected) {
+      feedback.textContent = 'Выберите вариант ответа.';
+      feedback.className = 'feedback wrong';
+      return;
     }
-  </script>
+
+    const value = selected.value;
+    if (value === '11') {
+      feedback.textContent = 'Верно! Рыб осталось 11.';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-2').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+  // --- Переход к вопросу №2 ---
+  function checkCode1() {
+    const code = document.getElementById('code-1').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-1');
+    if (code === 'ёжик') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-3').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 2 (варианты ответов) ---
+  function checkAnswer2() {
+    const selected = document.querySelector('input[name="answer-2"]:checked');
+    const feedback = document.getElementById('feedback-2');
+
+    if (!selected) {
+      feedback.textContent = 'Выберите вариант ответа.';
+      feedback.className = 'feedback wrong';
+      return;
+    }
+
+    const value = selected.value;
+    if (value === 'ВАЗ-2113') {
+      feedback.textContent = 'Верно! Это обновлённая восьмёрка.';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-4').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+  // --- Переход к вопросу №3 ---
+  function checkCode2() {
+    const code = document.getElementById('code-2').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-2');
+    if (code === 'слон') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-5').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 3 (открытый ответ) ---
+  function checkAnswer3() {
+    const answer = document.getElementById('answer-3').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-3');
+    if (answer === 'шахпанское' || answer === 'Шахпанское') {
+      feedback.textContent = 'Правильно!';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-6').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Переход к вопросу №4 ---
+  function checkCode3() {
+    const code = document.getElementById('code-3').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-3');
+    if (code === 'суслик') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-7').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 4 (варианты ответов) ---
+  function checkAnswer4() {
+    const selected = document.querySelector('input[name="answer-4"]:checked');
+    const feedback = document.getElementById('feedback-4');
+
+    if (!selected) {
+      feedback.textContent = 'Выберите вариант ответа.';
+      feedback.className = 'feedback wrong';
+      return;
+    }
+
+    const value = selected.value;
+    if (value === 'Диктатор') {
+      feedback.textContent = 'Верно! Саша как всегда красавчик).';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-8').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+  // --- Переход к вопросу №5 ---
+  function checkCode4() {
+    const code = document.getElementById('code-4').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-4');
+    if (code === 'гусь') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-9').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 5 (открытый ответ) ---
+  function checkAnswer5() {
+    const answer = document.getElementById('answer-5').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-5');
+    if (answer === 'жопа' || answer === 'Жопа' || answer === 'жжопа' || answer === 'Жжопа') {
+      feedback.textContent = 'Правильно!';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-10').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Переход к вопросу №6 ---
+  function checkCode5() {
+    const code = document.getElementById('code-5').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-5');
+    if (code === 'пенал') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-11').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 6 (открытый ответ) ---
+  function checkAnswer6() {
+    const answer = document.getElementById('answer-6').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-6');
+    if (answer === 'клоун Красти' || answer === 'клоун красти' || answer === 'Красти' || answer === 'красти' || answer === 'Клоун красти' || answer === 'Клоун Красти') {
+      feedback.textContent = 'Правильно!';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-12').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Переход к вопросу №7 ---
+  function checkCode6() {
+    const code = document.getElementById('code-6').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-6');
+    if (code === 'кролик') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-13').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 7 (варианты ответов) ---
+  function checkAnswer7() {
+    const selected = document.querySelector('input[name="answer-7"]:checked');
+    const feedback = document.getElementById('feedback-7');
+
+    if (!selected) {
+      feedback.textContent = 'Выберите вариант ответа.';
+      feedback.className = 'feedback wrong';
+      return;
+    }
+
+    const value = selected.value;
+    if (value === 'С мороженками') {
+      feedback.textContent = 'Верно!';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-14').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+  // --- Переход к вопросу №8 ---
+  function checkCode7() {
+    const code = document.getElementById('code-7').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-7');
+    if (code === 'винни-пух') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-15').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 8 (варианты ответов) ---
+  function checkAnswer8() {
+    const selected = document.querySelector('input[name="answer-8"]:checked');
+    const feedback = document.getElementById('feedback-8');
+
+    if (!selected) {
+      feedback.textContent = 'Выберите вариант ответа.';
+      feedback.className = 'feedback wrong';
+      return;
+    }
+
+    const value = selected.value;
+    if (value === 'Ирис') {
+      feedback.textContent = 'Верно!';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-16').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+  // --- Переход к вопросу №9 ---
+  function checkCode8() {
+    const code = document.getElementById('code-8').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-8');
+    if (code === 'гонщик') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-17').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 9 (открытый ответ) ---
+  function checkAnswer9() {
+    const answer = document.getElementById('answer-9').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-9');
+    if (answer === 'сон' || answer === 'Сон' || answer === 'сновидения' || answer === 'сновидение') {
+      feedback.textContent = 'Правильно!';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-18').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Переход к вопросу №10 ---
+  function checkCode9() {
+    const code = document.getElementById('code-9').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-9');
+    if (code === 'мультик') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-19').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 10 (открытый ответ) ---
+  function checkAnswer10() {
+    const answer = document.getElementById('answer-10').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-10');
+    if (answer === 'трусы' || answer === 'Трусы') {
+      feedback.textContent = 'Правильно! Ещё нужны тапочки';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-20').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Переход к вопросу №11 ---
+  function checkCode10() {
+    const code = document.getElementById('code-10').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-code-10');
+    if (code === 'конфетка') {
+      feedback.textContent = '';
+      hideAllStages();
+      document.getElementById('stage-21').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверное кодовое слово. Попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+  // --- Вопрос 11 (открытый ответ) ---
+  function checkAnswer11() {
+    const answer = document.getElementById('answer-11').value.trim().toLowerCase();
+    const feedback = document.getElementById('feedback-11');
+    if (answer === '5' || answer === 'пять' || answer === 'Пять') {
+      feedback.textContent = 'Правильно! Вместо одного отпиленного появились два';
+      feedback.className = 'feedback correct';
+      hideAllStages();
+      document.getElementById('stage-22').classList.add('active');
+    } else {
+      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.className = 'feedback wrong';
+    }
+  }
+
+
+
+</script>
+
 </body>
 </html>
