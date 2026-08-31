@@ -20,6 +20,10 @@
 
   <!-- Этап 1: Вопрос 1 (варианты ответов) -->
   <div id="stage-1" class="stage active">
+    <p>Вашему вниманию предлагается квест по поиску подарков.</p>
+    <p>Если правильно отвечаешь на вопрос - появляется карта с указанием где искать следующий подарок</p>
+    <p>А на подарке есть кодовое слово, которое нужно вписать, чтобы открылся следующий вопрос.</p>
+    <p>Итак, начнём!</p>
     <h2>Подарок №2</h2>
     <p>Сколько рыбок в аквариуме?</p>
     <div class="options">
@@ -28,14 +32,15 @@
       <label><input type="radio" name="answer-1" value="10"> 10</label>
       <label><input type="radio" name="answer-1" value="12"> 12</label>
     </div>
-    <button onclick="checkAnswer1()">Проверить</button>
+    <button id="btn-1" onclick="checkAnswer1()">Проверить</button>
     <div id="feedback-1" class="feedback"></div>
+	<div id="cooldown-1" class="cooldown-text"></div>
   </div>
 
   <!-- Этап 2: Награда 1 + кодовое слово -->
   <div id="stage-2" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan2.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-1" placeholder="Кодовое слово">
     <button onclick="checkCode1()">Продолжить</button>
@@ -53,14 +58,15 @@
       <label><input type="radio" name="answer-2" value="ВАЗ-2113"> ВАЗ-2113</label>
       <label><input type="radio" name="answer-2" value="ВАЗ-2109"> ВАЗ-2109</label>
     </div>
-    <button onclick="checkAnswer2()">Проверить</button>
+    <button id="btn-2" onclick="checkAnswer2()">Проверить</button>
     <div id="feedback-2" class="feedback"></div>
+	<div id="cooldown-2" class="cooldown-text"></div>
   </div>
 
   <!-- Этап 4: Награда 2 + кодовое слово -->
   <div id="stage-4" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan3.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-2" placeholder="Кодовое слово">
     <button onclick="checkCode2()">Продолжить</button>
@@ -80,7 +86,7 @@
   <!-- Этап 6: Награда 3 + кодовое слово -->
   <div id="stage-6" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan4.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-3" placeholder="Кодовое слово">
     <button onclick="checkCode3()">Продолжить</button>
@@ -98,14 +104,15 @@
       <label><input type="radio" name="answer-4" value="Бруно"> Бруно</label>
       <label><input type="radio" name="answer-4" value="Братья из Гримсби"> Братья из Гримсби</label>
     </div>
-    <button onclick="checkAnswer4()">Проверить</button>
+    <button id="btn-4" onclick="checkAnswer4()">Проверить</button>
     <div id="feedback-4" class="feedback"></div>
+	<div id="cooldown-4" class="cooldown-text"></div>
   </div>
 
   <!-- Этап 8: Награда 4 + кодовое слово -->
   <div id="stage-8" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan5.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-4" placeholder="Кодовое слово">
     <button onclick="checkCode4()">Продолжить</button>
@@ -125,7 +132,7 @@
   <!-- Этап 10: Награда 5 + кодовое слово -->
   <div id="stage-10" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan6.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-5" placeholder="Кодовое слово">
     <button onclick="checkCode5()">Продолжить</button>
@@ -145,7 +152,7 @@
   <!-- Этап 12: Награда 6 + кодовое слово -->
   <div id="stage-12" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan7.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-6" placeholder="Кодовое слово">
     <button onclick="checkCode6()">Продолжить</button>
@@ -160,16 +167,17 @@
       <label><input type="radio" name="answer-7" value="Фиолетовые новогодние"> Фиолетовые новогодние</label>
       <label><input type="radio" name="answer-7" value="Синие однотонные"> Синие однотонные</label>
       <label><input type="radio" name="answer-7" value="С мороженками"> С мороженками</label>
-      <label><input type="radio" name="answer-7" value="С ромашками"> С ромашками</label>
+      <label><input type="radio" name="answer-7" value="С вишеней"> С вишеней</label>
     </div>
-    <button onclick="checkAnswer7()">Проверить</button>
+    <button id="btn-7" onclick="checkAnswer7()">Проверить</button>
     <div id="feedback-7" class="feedback"></div>
+	<div id="cooldown-7" class="cooldown-text"></div>
   </div>
 
   <!-- Этап 14: Награда 7 + кодовое слово -->
   <div id="stage-14" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan8.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-7" placeholder="Кодовое слово">
     <button onclick="checkCode7()">Продолжить</button>
@@ -187,14 +195,15 @@
       <label><input type="radio" name="answer-8" value="Георгин"> Георгин</label>
       <label><input type="radio" name="answer-8" value="Петуния"> Петуния</label>
     </div>
-    <button onclick="checkAnswer8()">Проверить</button>
+    <button id="btn-8" onclick="checkAnswer8()">Проверить</button>
     <div id="feedback-8" class="feedback"></div>
+	<div id="cooldown-8" class="cooldown-text"></div>
   </div>
 
   <!-- Этап 16: Награда 8 + кодовое слово -->
   <div id="stage-16" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan9.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-8" placeholder="Кодовое слово">
     <button onclick="checkCode8()">Продолжить</button>
@@ -213,7 +222,7 @@
   <!-- Этап 18: Награда 9 + кодовое слово -->
   <div id="stage-18" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan10.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-9" placeholder="Кодовое слово">
     <button onclick="checkCode9()">Продолжить</button>
@@ -232,7 +241,7 @@
   <!-- Этап 20: Награда 10 + кодовое слово -->
   <div id="stage-20" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan11.png" alt="Следующий приз ищи здесь">
     <p>Нашла? Введи слово:</p>
     <input type="text" id="code-10" placeholder="Кодовое слово">
     <button onclick="checkCode10()">Продолжить</button>
@@ -251,7 +260,7 @@
   <!-- Этап 22: Награда 10 + кодовое слово -->
   <div id="stage-22" class="stage">
     <h2>Отлично!</h2>
-    <img src="images/plan.png" alt="Следующий приз ищи здесь">
+    <img src="images/plan12.png" alt="Последний приз ищи здесь">
     <p>С днём рождения!!!</p>
     <p>Тебе уже 35. Пора задуматься о том, что действительно важно.</p>
   </div>
@@ -262,6 +271,29 @@
     const stages = document.querySelectorAll('.stage');
     stages.forEach(el => el.classList.remove('active'));
   }
+
+// Вспомогательная функция: блокировка кнопки и обратный отсчёт
+  function applyCooldown(btnId, feedbackId, cooldownId, seconds) {
+    const btn = document.getElementById(btnId);
+    const feedback = document.getElementById(feedbackId);
+    const cooldownEl = document.getElementById(cooldownId);
+
+    btn.disabled = true;
+    let remaining = seconds;
+    cooldownEl.textContent = `${remaining} сек.`;
+
+    const timer = setInterval(() => {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(timer);
+        btn.disabled = false;
+        cooldownEl.textContent = '';
+      } else {
+        cooldownEl.textContent = `${remaining} сек.`;
+      }
+    }, 1000);
+  }
+
 
   // --- Вопрос 1 (варианты ответов) ---
   function checkAnswer1() {
@@ -281,8 +313,9 @@
       hideAllStages();
       document.getElementById('stage-2').classList.add('active');
     } else {
-      feedback.textContent = 'Неверно, попробуйте ещё раз.';
+      feedback.textContent = 'Неверно, попробуйте ещё раз через ';
       feedback.className = 'feedback wrong';
+	  applyCooldown('btn-1', 'feedback-1', 'cooldown-1', 30);
     }
   }
   // --- Переход к вопросу №2 ---
@@ -319,6 +352,7 @@
     } else {
       feedback.textContent = 'Неверно, попробуйте ещё раз.';
       feedback.className = 'feedback wrong';
+	  applyCooldown('btn-2', 'feedback-2', 'cooldown-2', 30);
     }
   }
   // --- Переход к вопросу №3 ---
@@ -384,6 +418,7 @@
     } else {
       feedback.textContent = 'Неверно, попробуйте ещё раз.';
       feedback.className = 'feedback wrong';
+	  applyCooldown('btn-4', 'feedback-4', 'cooldown-4', 30);
     }
   }
   // --- Переход к вопросу №5 ---
@@ -470,7 +505,7 @@
     }
 
     const value = selected.value;
-    if (value === 'С мороженками') {
+    if (value === 'С вишеней') {
       feedback.textContent = 'Верно!';
       feedback.className = 'feedback correct';
       hideAllStages();
@@ -478,6 +513,7 @@
     } else {
       feedback.textContent = 'Неверно, попробуйте ещё раз.';
       feedback.className = 'feedback wrong';
+	  applyCooldown('btn-7', 'feedback-7', 'cooldown-7', 30);
     }
   }
   // --- Переход к вопросу №8 ---
@@ -514,6 +550,7 @@
     } else {
       feedback.textContent = 'Неверно, попробуйте ещё раз.';
       feedback.className = 'feedback wrong';
+	  applyCooldown('btn-8', 'feedback-8', 'cooldown-8', 30);
     }
   }
   // --- Переход к вопросу №9 ---
